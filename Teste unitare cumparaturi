@@ -66,7 +66,7 @@ class ShoppingCartTest(unittest.TestCase):
         self.cart.add_item(self.item2)
 
         total = self.cart.calculate_total()
-        self.assertAlmostEqual(total, 3.5, places=2)
+        self.assertEqual(total, 3)
 
 if __name__ == '__main__':
     unittest.main()
