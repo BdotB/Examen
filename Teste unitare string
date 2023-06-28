@@ -1,5 +1,7 @@
 import unittest
+
 class StringManipulator:
+
     def reverse(self, string):
         return string[::-1]
 
@@ -23,6 +25,7 @@ class StringManipulator:
 
 
 class StringManipulatorTest(unittest.TestCase):
+
     def setUp(self):
         self.manipulator = StringManipulator()
 
@@ -49,5 +52,3 @@ class StringManipulatorTest(unittest.TestCase):
         result = self.manipulator.capitalize("hello")
         self.assertEqual(result, "Hello")
 
-if __name__ == '__main__':
-    unittest.main()
