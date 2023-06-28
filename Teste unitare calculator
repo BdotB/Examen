@@ -1,4 +1,5 @@
 import unittest
+import xmlrunner
 
 class Calculator:
 
@@ -43,3 +44,9 @@ class CalculatorTest(unittest.TestCase):
             self.calculator.divide(10, 0)
 
 
+test_suite = unittest.TestSuite()
+
+test_suite.addTest(unittest.makeSuite(CalculatorTest))
+
+runner = xmlrunner.XMLTestRunner(output='test-reports')
+result = runner.run(test_suite)
