@@ -1,4 +1,5 @@
 import unittest
+import xmlrunner
 
 class StringManipulator:
 
@@ -52,3 +53,9 @@ class StringManipulatorTest(unittest.TestCase):
         result = self.manipulator.capitalize("hello")
         self.assertEqual(result, "Hello")
 
+test_suite = unittest.TestSuite()
+
+test_suite.addTest(unittest.makeSuite(StringManipulatorTest))
+
+runner = xmlrunner.XMLTestRunner(output='test-reportsString')
+result = runner.run(test_suite)
