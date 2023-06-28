@@ -1,0 +1,72 @@
+import unittest
+class ShoppingCart:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        self.items.append(item)
+
+    def remove_item(self, item):
+        if item in self.items:
+            self.items.remove(item)
+
+    def get_item_count(self):
+        return len(self.items)
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def calculate_total(self):
+        total = 0
+        for item in self.items:
+            total += item.price
+        return total
+
+
+class Item:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+
+class ShoppingCartTest(unittest.TestCase):
+    def setUp(self):
+        self.cart = ShoppingCart()
+        self.item1 = Item("Apple", 1.5)
+        self.item2 = Item("Banana", 2.0)
+
+    def test_add_item(self):
+        self.cart.add_item(self.item1)
+        self.assertEqual(self.cart.get_item_count(), 1)
+
+        self.cart.add_item(self.item2)
+        self.assertEqual(self.cart.get_item_count(), 2)
+
+    def test_remove_item(self):
+        self.cart.add_item(self.item1)
+        self.cart.add_item(self.item2)
+
+        self.cart.remove_item(self.item1)
+        self.assertEqual(self.cart.get_item_count(), 1)
+
+    def test_get_item_count(self):
+        self.assertEqual(self.cart.get_item_count(), 0)
+
+        self.cart.add_item(self.item1)
+        self.assertEqual(self.cart.get_item_count(), 1)
+
+    def test_is_empty(self):
+        self.assertTrue(self.cart.is_empty())
+
+        self.cart.add_item(self.item1)
+        self.assertFalse(self.cart.is_empty())
+
+    def test_calculate_total(self):
+        self.cart.add_item(self.item1)
+        self.cart.add_item(self.item2)
+
+        total = self.cart.calculate_total()
+        self.assertAlmostEqual(total, 3.5, places=2)
+
+if __name__ == '__main__':
+    unittest.main()
