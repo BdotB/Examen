@@ -1,0 +1,53 @@
+import unittest
+class StringManipulator:
+    def reverse(self, string):
+        return string[::-1]
+
+    def is_palindrome(self, string):
+        reversed_string = self.reverse(string)
+        return string.lower() == reversed_string.lower()
+
+    def count_vowels(self, string):
+        vowels = ['a', 'e', 'i', 'o', 'u']
+        count = 0
+        for char in string.lower():
+            if char in vowels:
+                count += 1
+        return count
+
+    def concatenate(self, string1, string2):
+        return string1 + string2
+
+    def capitalize(self, string):
+        return string.capitalize()
+
+
+class StringManipulatorTest(unittest.TestCase):
+    def setUp(self):
+        self.manipulator = StringManipulator()
+
+    def test_reverse(self):
+        result = self.manipulator.reverse("hello")
+        self.assertEqual(result, "olleh")
+
+    def test_is_palindrome(self):
+        result1 = self.manipulator.is_palindrome("racecar")
+        self.assertTrue(result1)
+
+        result2 = self.manipulator.is_palindrome("hello")
+        self.assertFalse(result2)
+
+    def test_count_vowels(self):
+        result = self.manipulator.count_vowels("hello")
+        self.assertEqual(result, 2)
+
+    def test_concatenate(self):
+        result = self.manipulator.concatenate("Hello", "World")
+        self.assertEqual(result, "HelloWorld")
+
+    def test_capitalize(self):
+        result = self.manipulator.capitalize("hello")
+        self.assertEqual(result, "Hello")
+
+if __name__ == '__main__':
+    unittest.main()
