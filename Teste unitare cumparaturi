@@ -1,4 +1,5 @@
 import unittest
+import xmlrunner
 
 class ShoppingCart:
 
@@ -70,3 +71,10 @@ class ShoppingCartTest(unittest.TestCase):
 
         total = self.cart.calculate_total()
         self.assertEqual(total, 3)
+
+test_suite = unittest.TestSuite()
+
+test_suite.addTest(unittest.makeSuite(ShoppingCartTest))
+
+runner = xmlrunner.XMLTestRunner(output='test-reportsShopping')
+result = runner.run(test_suite)
