@@ -1,6 +1,7 @@
 import unittest
 
 class Calculator:
+
     def add(self, a, b):
         return a + b
 
@@ -17,6 +18,7 @@ class Calculator:
             raise ValueError("Cannot divide by zero")
 
 class CalculatorTest(unittest.TestCase):
+
     def setUp(self):
         self.calculator = Calculator()
 
