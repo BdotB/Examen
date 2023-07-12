@@ -1,5 +1,5 @@
 #Exemple de functii in python si cum se apeleaza acestea
-def aduna(a, b):   # definim functioa aduna cu parametrii a si b
+def aduna(a, b):   # definim functia aduna cu parametrii a si b
     suma = a + b   # calculam suma dintre a si b
     return suma    # returneaza rezultatul 
 rezultat = aduna(2, 3)    #apelam functia "aduna" cu parametrii 2 si 3
