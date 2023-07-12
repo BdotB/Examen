@@ -1,1 +1,13 @@
-#Exemple de functii in python si 
+#Exemple de functii in python si cum se apeleaza acestea
+def aduna(a, b):   # definim functioa aduna cu parametrii a si b
+    suma = a + b   # calculam suma dintre a si b
+    return suma    # returneaza rezultatul 
+rezultat = aduna(2, 3)    #apelam functia "aduna" cu parametrii 2 si 3
+print(rezultat)  # Output: 5 printam rezultatul 
+
+#exemplu de functie fara parametrii
+
+def salut():      #definim functia salut care nu are parametrii
+    print("Salut! Bine ai venit!")   #printam un mesaj la alegere care v-a fi afisat la apelarea functiei
+
+salut()        # apelarea funcției
