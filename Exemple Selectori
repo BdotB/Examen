@@ -1,0 +1,31 @@
+#cateva exemple de syntaxa folosita pentru selectori
+
+# selector by ID
+driver.find_element(By.ID, 'first-name')
+
+# selector by link text
+driver.find_element(By.LINK_TEXT, 'Checkboxes').click()
+
+# selector by Partial Link Text
+driver.find_element(By.PARTIAL_LINK_TEXT, 'Enabled').click()
+
+#selector by name
+driver.find_element(By.NAME, 'country')
+
+#selector by tag
+driver.find_element(By.TAG_NAME, 'input')
+
+#selector by class name
+driver.find_element(By.CLASS_NAME, 'form-control')
+
+#selector by CSS
+# selector by CSS - ID
+driver.find_element(By.CSS_SELECTOR, 'input#first-name')
+# selector by CSS - Class 
+driver.find_element(By.CSS_SELECTOR, 'input.form-control')
+
+#selector by XPATH
+# selector by Xpath - atribut=valoare
+driver.find_element(By.XPATH, '//input[@id="first-name"]')
+# selector by Xpath - OR primul gasit dintre variante
+driver.find_element(By.XPATH,'//input[@id="last-name1"] | //input[@id="last-name2"]')
