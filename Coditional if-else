@@ -1,7 +1,8 @@
-Exemplu conditional "if else" 
-x = 10
+#Exemplu conditional "if else" 
 
-if x > 5:
-    print("x este mai mare decat 5")
-else:
-    print("x este mai mic sau egal cu 5")
+x = 10    #atribuim variabilei x valoarea 10
+
+if x > 5:                                    #verificam daca valoarea atribuita variabilei x este mai mare decat 5
+    print("x este mai mare decat 5")         #daca valoarea atribuita este mai mare decat 5 printam "x este mai mare decat 5'
+else:                                        #daca conditia pusa anterior(x > 5) nu este indeplinita executam "elseul"
+    print("x este mai mic sau egal cu 5")    #printam "x este mai mic sau egal cu 5"
