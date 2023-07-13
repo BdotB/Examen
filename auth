@@ -30,8 +30,8 @@ class KeyboardTest(unittest.TestCase):
         # Type 'Dam' in the username input field
         user.send_keys('Dam')
         time.sleep(1)
-        # Select all text in the username input field using the keyboard shortcut
-        user.send_keys(Keys.COMMAND, 'a')
+        # introducem a
+        user.send_keys('a')
         time.sleep(2)
         # Move the cursor one character to the left
         user.send_keys(Keys.ARROW_LEFT)
