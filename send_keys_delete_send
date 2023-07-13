@@ -1,0 +1,53 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+import unittest
+import time
+
+class KeyboardTest(unittest.TestCase):
+    USER = (By.ID, 'username')
+    PASS = (By.ID, 'password')
+
+    def setUp(self):
+        # Set up the Chrome driver
+        s = Service(ChromeDriverManager().install())
+        self.chrome = webdriver.Chrome(service=s)
+        self.chrome.maximize_window()
+        self.chrome.implicitly_wait(5)
+
+    def test_select_all(self):
+        self.chrome.get("https://the-internet.herokuapp.com/login")
+        # Find the username input field using the defined locator
+        user = self.chrome.find_element(*self.USER)
+        # Type 'Anda' in the username input field
+        user.send_keys('Anda')
+        time.sleep(1)
+        # Clear the content of the username input field
+        user.clear()
+        time.sleep(2)
+        # Type 'Dam' in the username input field
+        user.send_keys('Dam')
+        time.sleep(1)
+        # Select all text in the username input field using the keyboard shortcut
+        user.send_keys(Keys.COMMAND, 'a')
+        time.sleep(2)
+        # Move the cursor one character to the left
+        user.send_keys(Keys.ARROW_LEFT)
+        time.sleep(2)
+        # Delete one character using the backspace key
+        user.send_keys(Keys.BACKSPACE)
+        time.sleep(2)
+        # Type 'AAAA' in the username input field
+        user.send_keys('AAAA')
+
+        # Find the password input field using the defined locator
+        password = self.chrome.find_element(*self.PASS)
+        # Type 'madd' in the password input field
+        password.send_keys('madd')
+
+    def tearDown(self):
+        # Close the Chrome driver
+        self.chrome.quit()
+
