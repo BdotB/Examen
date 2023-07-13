@@ -1,0 +1,24 @@
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.edge.service import Service
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.common.by import By
+
+service = Service(EdgeChromiumDriverManager().install())
+driver = webdriver.Edge(service=service)
+driver.maximize_window()
+
+driver.get('https://formy-project.herokuapp.com/form')
+
+# Utilizarea metodei By.ID pentru a găsi elementul folosind ID-ul
+first_name = driver.find_element(By.ID, 'first-name')
+first_name.send_keys('Bogdan')
+
+sleep(1)
+
+# Utilizarea metodei By.ID pentru a gasi elementul "last-name" și a introduce un nume
+last_name = driver.find_element(By.ID, 'last-name')
+last_name.send_keys('Ion')
+
+sleep(3)
+driver.quit()
