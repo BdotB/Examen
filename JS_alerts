@@ -1,1 +1,43 @@
+import unittest
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+
+class AlertTests(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        self.driver.maximize_window()
+        self.driver.get("https://the-internet.herokuapp.com/javascript_alerts")
+
+    def tearDown(self):
+        self.driver.quit()
+
+    def test_js_alert(self):
+        alert_button = self.driver.find_element(By.XPATH, '//button[text()="Click for JS Alert"]')
+        alert_button.click()
+        alert = self.driver.switch_to.alert
+        self.assertEqual(alert.text, "I am a JS Alert")
+        alert.accept()
+
+    def test_js_confirm(self):
+        confirm_button = self.driver.find_element(By.XPATH, '//button[text()="Click for JS Confirm"]')
+        confirm_button.click()
+        confirm = self.driver.switch_to.alert
+        self.assertEqual(confirm.text, "I am a JS Confirm")
+        confirm.accept()
+
+    def test_js_prompt(self):
+        prompt_button = self.driver.find_element(By.XPATH, '//button[text()="Click for JS Prompt"]')
+        prompt_button.click()
+        prompt = self.driver.switch_to.alert
+        self.assertEqual(prompt.text, "I am a JS prompt")
+        prompt.send_keys("Test input")
+        prompt.accept()
+        result_message = self.driver.find_element(By.ID, "result").text
+        self.assertEqual(result_message, "You entered: Test input")
+
+if __name__ == '__main__':
+    unittest.main()
+
 
