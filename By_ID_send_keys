@@ -1,1 +1,18 @@
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service)
+driver.maximize_window()
+
+driver.get('https://formy-project.herokuapp.com/form')
+
+# Utilizarea metodei By.ID pentru a găsi elementul folosind ID-ul
+first_name = driver.find_element(By.ID, 'first-name')
+first_name.send_keys('Bogdan')
+
+sleep(3)
+driver.quit()
