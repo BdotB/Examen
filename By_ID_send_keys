@@ -14,5 +14,11 @@ driver.get('https://formy-project.herokuapp.com/form')
 first_name = driver.find_element(By.ID, 'first-name')
 first_name.send_keys('Bogdan')
 
+sleep(1)
+
+# Utilizarea metodei By.ID pentru a gasi elementul "last-name" și a introduce un nume
+last_name = driver.find_element(By.ID, 'last-name')
+last_name.send_keys('Ion')
+
 sleep(3)
 driver.quit()
