@@ -3,41 +3,52 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
-class AlertTests(unittest.TestCase):
+class Alerts(unittest.TestCase):
 
     def setUp(self):
+        # Set up the Chrome driver
         self.driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
         self.driver.maximize_window()
         self.driver.get("https://the-internet.herokuapp.com/javascript_alerts")
 
     def tearDown(self):
+        # Close the Chrome driver
         self.driver.quit()
 
     def test_js_alert(self):
+        # Find the button to trigger a JS alert
         alert_button = self.driver.find_element(By.XPATH, '//button[text()="Click for JS Alert"]')
         alert_button.click()
+        # Switch to the alert dialog
         alert = self.driver.switch_to.alert
+        # Verify the text of the alert
         self.assertEqual(alert.text, "I am a JS Alert")
+        # Accept the alert (click OK)
         alert.accept()
 
     def test_js_confirm(self):
+        # Find the button to trigger a JS confirm dialog
         confirm_button = self.driver.find_element(By.XPATH, '//button[text()="Click for JS Confirm"]')
         confirm_button.click()
+        # Switch to the confirm dialog
         confirm = self.driver.switch_to.alert
+        # Verify the text of the confirm dialog
         self.assertEqual(confirm.text, "I am a JS Confirm")
+        # Accept the confirm dialog (click OK)
         confirm.accept()
 
     def test_js_prompt(self):
+        # Find the button to trigger a JS prompt dialog
         prompt_button = self.driver.find_element(By.XPATH, '//button[text()="Click for JS Prompt"]')
         prompt_button.click()
+        # Switch to the prompt dialog
         prompt = self.driver.switch_to.alert
+        # Verify the text of the prompt dialog
         self.assertEqual(prompt.text, "I am a JS prompt")
+        # Enter text in the prompt dialog
         prompt.send_keys("Test input")
+        # Accept the prompt dialog (click OK)
         prompt.accept()
+        # Find and verify the result message after accepting the prompt
         result_message = self.driver.find_element(By.ID, "result").text
         self.assertEqual(result_message, "You entered: Test input")
-
-if __name__ == '__main__':
-    unittest.main()
-
-
