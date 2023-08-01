@@ -1,24 +1,41 @@
 from time import sleep
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from webdriver_manager.microsoft import IEDriverManager
 
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
-driver.maximize_window()
+def automate_form_filling(browser_name):
+    if browser_name.lower() == 'chrome':
+        # Set up the ChromeDriver service
+        service = webdriver.chrome.service.Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service)
+    elif browser_name.lower() == 'firefox':
+        # Set up the FirefoxDriver service
+        service = webdriver.firefox.service.Service(executable_path=GeckoDriverManager().install())
+        driver = webdriver.Firefox(service=service)
+    elif browser_name.lower() == 'ie' or browser_name.lower() == 'internet explorer':
+        # Set up the Internet ExplorerDriver service
+        service = webdriver.ie.service.Service(executable_path=IEDriverManager().install())
+        driver = webdriver.Ie(service=service)
+    else:
+        raise ValueError("Invalid browser name. Please use 'chrome', 'firefox', or 'ie'/'internet explorer'.")
 
-driver.get('https://formy-project.herokuapp.com/form')
+    driver.maximize_window()
+    driver.get('https://formy-project.herokuapp.com/form')
 
-# Utilizarea metodei By.ID pentru a găsi elementul folosind ID-ul
-first_name = driver.find_element(By.ID, 'first-name')
-first_name.send_keys('Bogdan')
+    first_name = driver.find_element(By.ID, 'first-name')
+    first_name.send_keys('Bogdan')
 
-sleep(1)
+    sleep(1)
 
-# Utilizarea metodei By.ID pentru a gasi elementul "last-name" și a introduce un nume
-last_name = driver.find_element(By.ID, 'last-name')
-last_name.send_keys('Ion')
+    last_name = driver.find_element(By.ID, 'last-name')
+    last_name.send_keys('Ion')
 
-sleep(3)
-driver.quit()
+    sleep(3)
+    driver.quit()
+
+if __name__ == "__main__":
+    # Specify the browser name here: 'chrome', 'firefox', or 'ie'/'internet explorer'
+    browser_name = 'chrome'
+    automate_form_filling(browser_name)
