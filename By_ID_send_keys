@@ -1,5 +1,3 @@
-import unittest
-import HtmlTestRunner
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -7,51 +5,38 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import IEDriverManager
 
+def automate_form_filling(browser_name):
 
-class FormAutomationTest(unittest.TestCase):
+    if browser_name.lower() == 'chrome':
+        # Set up the ChromeDriver service
+        service = webdriver.chrome.service.Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service)
+    elif browser_name.lower() == 'firefox':
+        # Set up the FirefoxDriver service
+        service = webdriver.firefox.service.Service(executable_path=GeckoDriverManager().install())
+        driver = webdriver.Firefox(service=service)
+    elif browser_name.lower() == 'ie' or browser_name.lower() == 'internet explorer':
+        # Set up the Internet ExplorerDriver service
+        service = webdriver.ie.service.Service(executable_path=IEDriverManager().install())
+        driver = webdriver.Ie(service=service)
+    else:
+        raise ValueError("Invalid browser name. Please use 'chrome', 'firefox', or 'ie'/'internet explorer'.")
 
-    def setUp(self):
-        # Set up the browser driver based on the specified browser_name
-        if self.browser_name.lower() == 'chrome':
-            self.driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
-        elif self.browser_name.lower() == 'firefox':
-            self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
-        elif self.browser_name.lower() == 'ie' or self.browser_name.lower() == 'internet explorer':
-            self.driver = webdriver.Ie(executable_path=IEDriverManager().install())
-        else:
-            raise ValueError("Invalid browser name. Please use 'chrome', 'firefox', or 'ie'/'internet explorer'.")
+    driver.maximize_window()
+    driver.get('https://formy-project.herokuapp.com/form')
 
-        self.driver.maximize_window()
-        self.driver.get('https://formy-project.herokuapp.com/form')
+    first_name = driver.find_element(By.ID, 'first-name')
+    first_name.send_keys('Bogdan')
 
-    def test_fill_form_by_ID(self):
-        # Find and fill the first name field
-        first_name = self.driver.find_element(By.ID, 'first-name')
-        first_name.send_keys('Bogdan')
-        sleep(1)
+    sleep(1)
 
-        # Find and fill the last name field
-        last_name = self.driver.find_element(By.ID, 'last-name')
-        last_name.send_keys('Ion')
-        sleep(3)
+    last_name = driver.find_element(By.ID, 'last-name')
+    last_name.send_keys('Ion')
 
-    def tearDown(self):
-        # Close the browser after the test
-        self.driver.quit()
-
+    sleep(3)
+    driver.quit()
 
 if __name__ == "__main__":
     # Specify the browser name here: 'chrome', 'firefox', or 'ie'/'internet explorer'
     browser_name = 'firefox'
-
-    # Set the browser_name as an attribute for the test class
-    setattr(FormAutomationTest, 'browser_name', browser_name)
-
-    # Load the test cases from the test class
-    suite = unittest.TestLoader().loadTestsFromTestCase(FormAutomationTest)
-
-    # Define the HTMLTestRunner
-    runner = HtmlTestRunner.HTMLTestRunner(output=".", report_name="by_ID_report", add_timestamp=False)
-
-    # Run the tests and generate the HTML report
-    runner.run(suite)
+    automate_form_filling(browser_name)
