@@ -1,26 +1,27 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
 import unittest
 import time
+import HtmlTestRunner
 
 class KeyboardTest(unittest.TestCase):
     USER = (By.ID, 'username')
     PASS = (By.ID, 'password')
 
     def setUp(self):
-        # Set up the Chrome driver
-        s = Service(ChromeDriverManager().install())
-        self.chrome = webdriver.Chrome(service=s)
-        self.chrome.maximize_window()
-        self.chrome.implicitly_wait(5)
+        # Set up the Firefox driver
+        s = FirefoxService(executable_path=GeckoDriverManager().install())
+        self.firefox = webdriver.Firefox(service=s)
+        self.firefox.maximize_window()
+        self.firefox.implicitly_wait(5)
 
     def test_select_all(self):
-        self.chrome.get("https://the-internet.herokuapp.com/login")
+        self.firefox.get("https://the-internet.herokuapp.com/login")
         # Find the username input field using the defined locator
-        user = self.chrome.find_element(*self.USER)
+        user = self.firefox.find_element(*self.USER)
         # Type 'Anda' in the username input field
         user.send_keys('Anda')
         time.sleep(1)
@@ -30,7 +31,7 @@ class KeyboardTest(unittest.TestCase):
         # Type 'Dam' in the username input field
         user.send_keys('Dam')
         time.sleep(1)
-        # introducem a
+        # Adauga litera a
         user.send_keys('a')
         time.sleep(2)
         # Move the cursor one character to the left
@@ -43,11 +44,21 @@ class KeyboardTest(unittest.TestCase):
         user.send_keys('AAAA')
 
         # Find the password input field using the defined locator
-        password = self.chrome.find_element(*self.PASS)
+        password = self.firefox.find_element(*self.PASS)
         # Type 'madd' in the password input field
         password.send_keys('madd')
+        time.sleep(3)
 
     def tearDown(self):
-        # Close the Chrome driver
-        self.chrome.quit()
+        # Close the Firefox driver
+        self.firefox.quit()
 
+if __name__ == "__main__":
+    # Define the test suite
+    suite = unittest.TestLoader().loadTestsFromTestCase(KeyboardTest)
+
+    # Define the test runner
+    runner = HtmlTestRunner.HTMLTestRunner(output=".", report_name="TestReport", add_timestamp=False)
+
+    # Run the tests and generate the HTML report
+    runner.run(suite)
