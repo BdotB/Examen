@@ -1,18 +1,19 @@
 import unittest
+import HtmlTestRunner
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
 class Alerts(unittest.TestCase):
 
     def setUp(self):
-        # Set up the Chrome driver
-        self.driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        # Set up the Firefox driver using webdriver_manager
+        self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
         self.driver.maximize_window()
         self.driver.get("https://the-internet.herokuapp.com/javascript_alerts")
 
     def tearDown(self):
-        # Close the Chrome driver
+        # Close the Firefox driver
         self.driver.quit()
 
     def test_js_alert(self):
@@ -52,3 +53,15 @@ class Alerts(unittest.TestCase):
         # Find and verify the result message after accepting the prompt
         result_message = self.driver.find_element(By.ID, "result").text
         self.assertEqual(result_message, "You entered: Test input")
+
+if __name__ == "__main__":
+    # Define the test suite
+    suite = unittest.TestLoader().loadTestsFromTestCase(Alerts)
+
+    # Define the test runner
+    output_path = r'C:\Users\Bogdan\Desktop\pythonProject5'
+    report_name = 'NumeRaport.html'
+    runner = HtmlTestRunner.HTMLTestRunner(output=output_path, report_name=report_name)
+
+    # Run the tests and generate the HTML report
+    runner.run(suite)
