@@ -16,6 +16,8 @@ class EmagSearchTest(unittest.TestCase):
         # Open the website
         self.driver.get("https://emag.ro")
 
+
+
         # Find and interact with the search bar
         search_input = self.driver.find_element(By.XPATH, '//*[@id="searchboxTrigger"]')
         search_input.send_keys('monitoare')
@@ -33,6 +35,10 @@ class EmagSearchTest(unittest.TestCase):
 
         # Check if the numeric part is greater than 10
         self.assertTrue(result_number > 10, f"Number {result_number} is not greater than 10")
+
+
+
+
 
     def tearDown(self):
         # Close the browser
