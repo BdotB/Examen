@@ -37,3 +37,4 @@ if __name__ == "__main__":
 
     # Run the tests and generate the HTML report
     runner.run(suite)
+
